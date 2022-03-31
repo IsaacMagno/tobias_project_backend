@@ -1,4 +1,4 @@
-const { File } = require('../database/models');
+const { File } = require("../database/models");
 
 const uploadFile = async (fileName, champion_id) => {
   const file = await File.create({

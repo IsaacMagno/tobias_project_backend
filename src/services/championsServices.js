@@ -1,4 +1,4 @@
-const { Champion, Statistic } = require('../database/models');
+const { Champion, Statistic } = require("../database/models");
 
 const getAll = async () => {
   const champions = await Champion.findAll({

@@ -1,6 +1,6 @@
-const championsServices = require('../services/championsServices');
+const championsServices = require("../services/championsServices");
 
-const getAll = async(_req, res) => {
+const getAll = async (_req, res) => {
   try {
     const champions = await championsServices.getAll();
 
@@ -9,7 +9,6 @@ const getAll = async(_req, res) => {
     return res.status(500).json({ message: error });
   }
 };
-
 
 module.exports = {
   getAll,

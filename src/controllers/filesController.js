@@ -1,4 +1,4 @@
-const filesServices = require('../services/filesServices');
+const filesServices = require("../services/filesServices");
 
 const uploadFile = async (req, res) => {
   try {
@@ -22,7 +22,7 @@ const getAllFiles = async (_req, res) => {
   } catch (error) {
     return res.status(500).json({ message: error });
   }
-}
+};
 
 module.exports = {
   uploadFile,

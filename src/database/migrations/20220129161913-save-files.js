@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -7,10 +7,10 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       image: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       championId: {
         type: Sequelize.INTEGER,
@@ -23,12 +23,12 @@ module.exports = {
           key: "id",
         },
       },
-    })
+    });
 
     return FilesTable;
   },
 
   down: async (queryInterface, _Sequelize) => {
-    await queryInterface.dropTable("Files")
-  }
+    await queryInterface.dropTable("Files");
+  },
 };
