@@ -4,5 +4,4 @@
 
 #### 🚧  Principais Tecnologias utlizadas no desenvolvimento Back-End
 - NodeJS
-- MSC
-- ESlint
+- mySQL ( Sequelize )
