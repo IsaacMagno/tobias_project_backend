@@ -20,8 +20,8 @@ const statsRefactor = (activities, actualStats) => {
   const { strength, agility, inteligence, vitality } = actualStats[0];
 
   const agi = { name: "agility", newValue: { run: kmRun / 5, rope: jumpRope / 1800 }, oldValue: agility };
-  const str = { name: "strength", newValue: (pushUp + abs) / 150, oldValue: strength };
-  const int = { name: "inteligence", newValue: (study + meditation + reading) / 5, oldValue: inteligence };
+  const str = { name: "strength", newValue: (pushUp + abs) / 300, oldValue: strength };
+  const int = { name: "inteligence", newValue: (study + meditation + reading) / 15, oldValue: inteligence };
   const vit = { name: "vitality", newValue: ( meals + drinks ) / 25,  oldValue: vitality };
 
   const allStats = statsCalculate(agi, str, int, vit)
