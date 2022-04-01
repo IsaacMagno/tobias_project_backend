@@ -5,6 +5,7 @@ const Champion = (sequelize, DataTypes) => {
       id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
       name: DataTypes.STRING,
       bornDate: DataTypes.STRING,
+      googleId: DataTypes.STRING,
     },
     {
       timestamps: false,

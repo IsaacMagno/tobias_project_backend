@@ -17,6 +17,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      googleId: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
     });
 
     return ChampionsTable;
