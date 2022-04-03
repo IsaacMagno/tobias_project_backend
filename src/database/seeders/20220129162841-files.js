@@ -6,15 +6,15 @@ module.exports = {
       "Files",
       [
         {
-          image: "algo",
+          image: "1648670739094-isaac.png",
           champion_id: 1,
         },
         {
-          image: "algo",
+          image: "1648670768095-paulo.png",
           champion_id: 2,
         },
         {
-          image: "algo",
+          image: "1648670797651-esdras.png",
           champion_id: 3,
         },
       ],
