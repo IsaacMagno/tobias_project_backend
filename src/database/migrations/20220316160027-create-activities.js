@@ -15,10 +15,16 @@ module.exports = {
       jump_rope: {
         type: Sequelize.INTEGER,
       },
-      push_up: {
+      km_bike: {
+        type: Sequelize.INTEGER,
+      },
+      upper_limb: {
         type: Sequelize.INTEGER,
       },
       abs: {
+        type: Sequelize.INTEGER,
+      },
+      lower_limb: {
         type: Sequelize.INTEGER,
       },
       meals: {
