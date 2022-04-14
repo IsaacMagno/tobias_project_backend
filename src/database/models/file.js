@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   File.associate = (models) => {
     File.belongsTo(models.Champion, {
       foreignKey: "champion_id",
-      as: "pictures",
+      as: "champions",
     });
   };
 

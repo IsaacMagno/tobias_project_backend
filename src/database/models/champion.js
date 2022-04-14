@@ -23,6 +23,14 @@ const Champion = (sequelize, DataTypes) => {
       foreignKey: "champion_id",
       as: "activities",
     });
+    Champion.hasOne(models.File, {
+      foreignKey: "champion_id",
+      as: "files",
+    });
+    Champion.hasOne(models.Calendar, {
+      foreignKey: "champion_id",
+      as: "calendars",
+    });
   };
 
   return Champion;
