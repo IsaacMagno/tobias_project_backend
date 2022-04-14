@@ -2,7 +2,7 @@ const { Champion } = require("../database/models");
 
 const getAll = async () => {
   const champions = await Champion.findAll({
-    include: { all: true },
+    include: { all: true, nested: true },
   });
 
   return champions;
