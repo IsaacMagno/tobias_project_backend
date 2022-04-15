@@ -19,7 +19,7 @@ const Calendar = (sequelize, DataTypes) => {
       foreignKey: "champion_id",
       as: "champions",
     });
-    Calendar.hasMany(models.Event, { foreignKey: "calendar_id", as: "events" });
+    Calendar.hasMany(models.Event, { as: "events" });
   };
 
   return Calendar;
