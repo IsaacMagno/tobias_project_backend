@@ -23,7 +23,10 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Activitie.associate = (models) => {
-    Activitie.belongsTo(models.Champion);
+    Activitie.belongsTo(models.Champion, {
+      foreignKey: "champion_id",
+      as: "champions",
+    });
   };
 
   return Activitie;
