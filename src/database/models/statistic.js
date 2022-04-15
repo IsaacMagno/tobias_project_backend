@@ -17,7 +17,10 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Statistic.associate = (models) => {
-    Statistic.belongsTo(models.Champion);
+    Statistic.belongsTo(models.Champion, {
+      foreignKey: "champion_id",
+      as: "champions",
+    });
   };
 
   return Statistic;
