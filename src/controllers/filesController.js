@@ -16,16 +16,24 @@ const uploadFile = async (req, res) => {
 
 const uploadPractice = async (req, res) => {
   try {
-    const filesName = req.files;
+    const fileName = req.file.filename;
     const { id } = req.params;
 
-    const result = await Promise.all(
-      filesName.map(async (file) => {
-        return await filesServices.uploadPractice(file.filename, id);
-      })
-    );
+    const practiceUpload = await filesServices.uploadPractice(fileName, id);
 
-    return res.status(200).json(result);
+    return res.status(200).json(practiceUpload);
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+};
+
+const getPractice = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const allPractice = await filesServices.getPracticeById(id);
+
+    return res.status(200).json(allPractice);
   } catch (error) {
     return res.status(500).json({ message: error });
   }
@@ -44,5 +52,6 @@ const getAllFiles = async (_req, res) => {
 module.exports = {
   uploadFile,
   uploadPractice,
+  getPractice,
   getAllFiles,
 };

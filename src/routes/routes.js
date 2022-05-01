@@ -8,8 +8,6 @@ const uploadPractice = require("../middlewares/uploadPractice");
 const phrasesController = require("../controllers/phrasesController");
 const calendarController = require("../controllers/calendarController");
 
-const maxFiles = 3;
-
 router.get("/", championsController.getAll);
 
 router.get("/phrases", phrasesController.getPhrases);
@@ -17,6 +15,8 @@ router.get("/phrases", phrasesController.getPhrases);
 router.get("/calendars", calendarController.getCalendar);
 
 router.get("/uploads", filesController.getAllFiles);
+
+router.get("/practice/:id", filesController.getPractice);
 
 router.put("/stats/:id", statisticsController.updateStatistics);
 
@@ -28,7 +28,7 @@ router.post("/uploads", uploadImage.single("file"), filesController.uploadFile);
 
 router.post(
   "/practice/:id",
-  uploadPractice.array("files", maxFiles),
+  uploadPractice.single("file"),
   filesController.uploadPractice
 );
 

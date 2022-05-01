@@ -18,8 +18,17 @@ const uploadPractice = async (fileName, champion_id) => {
   return file;
 };
 
+const getPracticeById = async (champion_id) => {
+  const allPractice = await Practice.findAll({
+    where: { champion_id },
+    raw: true,
+  });
+
+  return allPractice;
+};
+
 const getAllFiles = async () => {
-  const allFiles = await File.findAll();
+  const allFiles = await Files.findAll();
 
   return allFiles;
 };
@@ -27,5 +36,6 @@ const getAllFiles = async () => {
 module.exports = {
   uploadFile,
   uploadPractice,
+  getPracticeById,
   getAllFiles,
 };
