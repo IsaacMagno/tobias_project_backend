@@ -9,6 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/images", express.static("public"));
+app.use("/practice", express.static("public/practice"));
 
 app.use("/", routes);
 

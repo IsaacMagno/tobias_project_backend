@@ -14,6 +14,31 @@ const uploadFile = async (req, res) => {
   }
 };
 
+const uploadPractice = async (req, res) => {
+  try {
+    const fileName = req.file.filename;
+    const { id } = req.params;
+
+    const practiceUpload = await filesServices.uploadPractice(fileName, id);
+
+    return res.status(200).json(practiceUpload);
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+};
+
+const getPractice = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const allPractice = await filesServices.getPracticeById(id);
+
+    return res.status(200).json(allPractice);
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+};
+
 const getAllFiles = async (_req, res) => {
   try {
     const allFiles = await filesServices.getAllFiles();
@@ -26,5 +51,7 @@ const getAllFiles = async (_req, res) => {
 
 module.exports = {
   uploadFile,
+  uploadPractice,
+  getPractice,
   getAllFiles,
 };
