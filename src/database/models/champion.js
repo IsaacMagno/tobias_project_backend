@@ -31,7 +31,7 @@ const Champion = (sequelize, DataTypes) => {
       foreignKey: "champion_id",
       as: "calendars",
     });
-    Champion.hasOne(models.Practice, {
+    Champion.hasMany(models.Practice, {
       foreignKey: "champion_id",
       as: "practice",
     });
