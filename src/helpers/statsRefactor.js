@@ -2,13 +2,13 @@ const statsCalculate = (agi, str, int, vit) => {
   const { upper, absNew, lower } = str.newValue;
   const { run, rope, bike } = agi.newValue;
   const { stu, medit, read } = int.newValue;
-  const { meal, drink } = vit.newValue;
+  const { meal, drink, sleep } = vit.newValue;
 
   const stats = {
     strength: Math.floor(upper + absNew + lower),
     agility: Math.floor(run + rope + bike),
     inteligence: Math.floor(stu + medit + read),
-    vitality: Math.floor(meal + drink),
+    vitality: Math.floor(meal + drink + sleep),
   };
 
   const total = Object.values(stats).reduce((p, c) => p + c, 0);
@@ -29,10 +29,12 @@ const statsRefactor = (activities, actualStats) => {
     lowerLimb,
     meals,
     drinks,
+    sleep,
     study,
     meditation,
     reading,
   } = activities[0];
+
   const { strength, agility, inteligence, vitality } = actualStats[0];
 
   const agi = {
@@ -67,6 +69,7 @@ const statsRefactor = (activities, actualStats) => {
     newValue: {
       meal: meals / 8,
       drink: drinks / 10,
+      sleep: sleep / 240,
     },
     oldValue: vitality,
   };

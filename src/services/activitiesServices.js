@@ -5,7 +5,9 @@ const updateActivities = async (champion_id, stats, value) => {
     where: { champion_id },
     raw: true,
   });
+
   const { [stats]: oldStat } = oldStats[0];
+
   const statsUpdated = await Activitie.update(
     { [stats]: value + oldStat },
     { where: { champion_id } }

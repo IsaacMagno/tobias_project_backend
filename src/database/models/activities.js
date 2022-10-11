@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       lowerLimb: DataTypes.INTEGER,
       meals: DataTypes.INTEGER,
       drinks: DataTypes.INTEGER,
+      sleep: DataTypes.INTEGER,
       study: DataTypes.INTEGER,
       meditation: DataTypes.INTEGER,
       reading: DataTypes.INTEGER,
