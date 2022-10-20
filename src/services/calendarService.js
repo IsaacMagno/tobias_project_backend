@@ -16,7 +16,14 @@ const createEvent = async ({ newEvent }, id) => {
   return cEvent;
 };
 
+const deleteEvent = async ({ date }, id) => {
+  const eventDelete = await Event.destroy({ where: { calendar_id: id, date } });
+
+  return eventDelete;
+};
+
 module.exports = {
   getCalendar,
   createEvent,
+  deleteEvent,
 };

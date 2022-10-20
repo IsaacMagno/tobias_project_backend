@@ -19,11 +19,13 @@ const phrasesScrapper = () => {
 
     listPhrases.each((_i, p) => {
       const phrase = { text: "", author: "" };
+
       const sText = selector(p).children("p.fr").text();
+      const tst = selector(p).children(".autor").text();
 
       if (sText.length > 0) {
         phrase.text = sText;
-        phrase.author = selector(p).children("span.autor").text();
+        phrase.author = selector(p).children(".autor").children("a").text();
       }
 
       phrases.push(phrase);

@@ -32,4 +32,6 @@ router.post(
   filesController.uploadPractice
 );
 
+router.delete("/calendars/:id", calendarController.deleteEvent);
+
 module.exports = router;
