@@ -32,6 +32,9 @@ router.post(
   filesController.uploadPractice
 );
 
+router.post("/create-new-champion", championsController.createChampion);
+router.post("/champion-login", championsController.championLogin);
+
 router.delete("/calendars/:id", calendarController.deleteEvent);
 
 module.exports = router;
