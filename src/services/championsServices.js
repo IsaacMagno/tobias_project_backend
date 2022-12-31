@@ -13,6 +13,7 @@ const getAll = async () => {
 const createChampion = async (championData) => {
   const { username, password } = championData;
 
+  // Criar função
   const hash = await bcrypt.hash(password, 13);
 
   return "Criação não disponivel";
