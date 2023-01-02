@@ -7,6 +7,13 @@ const uploadImage = require("../middlewares/uploadImage");
 const uploadPractice = require("../middlewares/uploadPractice");
 const phrasesController = require("../controllers/phrasesController");
 const calendarController = require("../controllers/calendarController");
+const taskController = require("../controllers/taskController");
+
+router.get("/task", taskController.readTask);
+router.get("/task/:id", taskController.readTask);
+router.post("/task", taskController.createTask);
+router.put("/task/:id", taskController.updateTask);
+router.delete("/task/:id", taskController.deleteTask);
 
 router.get("/", championsController.getAll);
 

@@ -21,7 +21,7 @@ const phrasesScrapper = () => {
       const phrase = { text: "", author: "" };
 
       const sText = selector(p).children("p.fr").text();
-      const tst = selector(p).children(".autor").text();
+      // const tst = selector(p).children(".autor").text();
 
       if (sText.length > 0) {
         phrase.text = sText;

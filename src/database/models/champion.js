@@ -36,6 +36,10 @@ const Champion = (sequelize, DataTypes) => {
       foreignKey: "champion_id",
       as: "practice",
     });
+    Champion.hasMany(models.Task, {
+      foreignKey: "champion_id",
+      as: "task",
+    });
   };
 
   return Champion;
