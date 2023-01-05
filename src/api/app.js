@@ -20,7 +20,7 @@ app.get(
   "/.well-known/pki-validation/E63A15CEDBFDC045D7CEBFE256FA303B.txt",
   (req, res) => {
     res.sendFile(
-      "/home/isaac/myProjects/tobias_project_backend/E63A15CEDBFDC045D7CEBFE256FA303B.txt"
+      "/home/ubuntu/tobias_project_backend/E63A15CEDBFDC045D7CEBFE256FA303B.txt"
     );
   }
 );
