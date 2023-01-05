@@ -1,10 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const fs = require("fs");
 const path = require("path");
 const routes = require("../routes/routes");
-
-const file = fs.readFileSync("./E63A15CEDBFDC045D7CEBFE256FA303B.txt");
 
 const app = express();
 
