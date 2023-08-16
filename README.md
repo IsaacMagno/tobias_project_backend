@@ -1,7 +1,8 @@
 ## 🛠️ Projeto pessoal em desenvolvimento
 
-#### 🖖 O projeto Tobias é um App criado por mim para ter dados e métricas sobre Autodesenvolvimento.
+#### 🖖 O projeto Tobias é um aplicativo utilizado para ter dados e métricas sobre Autodesenvolvimento.
 
-#### 🚧  Principais Tecnologias utlizadas no desenvolvimento Back-End
+#### 🚧 Principais Tecnologias utlizadas no desenvolvimento Back-End
+
 - NodeJS
 - mySQL ( Sequelize )
