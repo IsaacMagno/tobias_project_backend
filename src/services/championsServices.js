@@ -11,19 +11,14 @@ const getAll = async () => {
 };
 
 const createChampion = async (championData) => {
-  const { username, password } = championData;
-
+  // const { username, password } = championData;
   // Criar função
-  const hash = await bcrypt.hash(password, 13);
-
-  championData.password = hash;
-
-  championData["name"] = "Matheus";
-  championData["bornDate"] = "20-09-1999";
-
-  console.log(championData);
-  const champion = await Champion.create(championData);
-
+  // const hash = await bcrypt.hash(password, 13);
+  // championData.password = hash;
+  // championData["name"] = "Matheus";
+  // championData["bornDate"] = "20-09-1999";
+  // console.log(championData);
+  // const champion = await Champion.create(championData);
   // return "Criação não disponivel";
 };
 
