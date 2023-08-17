@@ -58,8 +58,8 @@ const statsRefactor = (activities, actualStats) => {
   const int = {
     name: "inteligence",
     newValue: {
-      stu: study / 5,
-      medit: meditation / 5,
+      stu: study / 15,
+      medit: meditation / 10,
       read: reading / 5,
     },
     oldValue: inteligence,
