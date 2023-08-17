@@ -4,7 +4,7 @@ const uploadFile = async (req, res) => {
   try {
     const fileName = req.file.filename;
 
-    const fakeId = 4;
+    const fakeId = 6;
 
     const fileUploaded = await filesServices.uploadFile(fileName, fakeId);
 

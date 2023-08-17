@@ -11,20 +11,20 @@ const getAll = async () => {
 };
 
 const createChampion = async (championData) => {
-  // const { username, password } = championData;
+  const { username, password } = championData;
 
   // Criar função
-  // const hash = await bcrypt.hash(password, 13);
+  const hash = await bcrypt.hash(password, 13);
 
-  // championData.password = hash;
+  championData.password = hash;
 
-  // championData["name"] = "Antonio";
-  // championData["bornDate"] = "04-11-1997";
+  championData["name"] = "Matheus";
+  championData["bornDate"] = "20-09-1999";
 
-  // console.log(championData);
-  // const champion = await Champion.create(championData);
+  console.log(championData);
+  const champion = await Champion.create(championData);
 
-  return "Criação não disponivel";
+  // return "Criação não disponivel";
 };
 
 const validateChampionLogin = async (championData) => {
