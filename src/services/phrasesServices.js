@@ -2,8 +2,19 @@ const axios = require("axios");
 const scrapper = require("cheerio");
 
 const phrasesScrapper = () => {
-  const URL_BASE = "https://www.pensador.com/frases_inteligentes";
-  const page = Math.floor(Math.random() * 19 + 1);
+  const URL_BASE = "https://www.pensador.com/frases_de_superacao";
+
+  let firstNumber = Math.floor(Math.random() * 631 + 1);
+  let secondNumber = firstNumber + 10;
+
+  if (secondNumber > 631) {
+    firstNumber = Math.floor(Math.random() * (631 - 10) + 1);
+    secondNumber = firstNumber + 10;
+  }
+
+  const page = Math.floor(
+    Math.random() * (secondNumber - firstNumber + 1) + firstNumber
+  );
 
   const fetchData = async () => {
     result = await axios.get(`${URL_BASE}/${page}`);
