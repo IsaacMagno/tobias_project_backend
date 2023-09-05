@@ -11,8 +11,8 @@ const getAll = async () => {
 };
 
 const createChampion = async (championData) => {
-  // const { username, password } = championData;
-  // Criar função
+  const { username, password } = championData;
+
   // const hash = await bcrypt.hash(password, 13);
   // championData.password = hash;
   // championData["name"] = "";
