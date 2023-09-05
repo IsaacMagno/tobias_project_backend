@@ -14,7 +14,9 @@ const createChampion = async (req, res) => {
   try {
     const championData = req.body;
 
-    const createdChampion = championsServices.createChampion(championData);
+    const createdChampion = await championsServices.createChampion(
+      championData
+    );
 
     return res.status(200).json({ createdChampion });
   } catch (error) {
