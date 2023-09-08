@@ -9,14 +9,38 @@ const readTask = async (id) => {
 };
 
 const createTask = async (taskData) => {
-  const { goal } = taskData;
+  let month;
+  let week;
+  let day;
+  let actual;
 
-  const month = Math.round(goal / 12);
-  const week = Math.round(goal / 52.1429);
-  const actual = 0;
+  const { goal, type } = taskData;
+
+  if (type.toLowerCase() === "anual") {
+    month = (goal / 12).toFixed(2);
+    week = (goal / 52.1429).toFixed(2);
+    day = (goal / 365.25).toFixed(2);
+    actual = 0;
+  } else if (type.toLowerCase() === "mensal") {
+    month = goal;
+    week = (goal / 4.34524).toFixed(2);
+    day = (goal / 30.4167).toFixed(2);
+    actual = 0;
+  } else if (type.toLowerCase() === "semanal") {
+    month = 0;
+    week = goal;
+    day = (goal / 7).toFixed(2);
+    actual = 0;
+  } else if (type.toLowerCase() === "diario") {
+    month = 0;
+    week = 0;
+    day = goal;
+    actual = 0;
+  }
 
   taskData.month = month;
   taskData.week = week;
+  taskData.daily = day;
   taskData.actual = actual;
 
   return await Task.create(taskData);

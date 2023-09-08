@@ -15,9 +15,9 @@ const createChampion = async (championData) => {
 
   // const hash = await bcrypt.hash(password, 13);
   // championData.password = hash;
-  // championData["name"] = "";
-  // championData["bornDate"] = "";
-  // console.log(championData);
+  // championData["name"] = "admin";
+  // championData["bornDate"] = "00-00-0000";
+
   // const champion = await Champion.create(championData);
 
   // return champion;

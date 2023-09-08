@@ -6,8 +6,9 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       type: DataTypes.STRING,
       goal: DataTypes.INTEGER,
-      month: DataTypes.INTEGER,
-      week: DataTypes.INTEGER,
+      month: DataTypes.FLOAT,
+      week: DataTypes.FLOAT,
+      daily: DataTypes.FLOAT,
       actual: DataTypes.INTEGER,
     },
     {
