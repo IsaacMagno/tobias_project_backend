@@ -13,8 +13,8 @@ const updateStatistic = async (activities) => {
 
   const valuesToArray = Object.entries(valuesToUpdate);
 
-  valuesToArray.forEach(async (s) => {
-    const [stats, value] = s;
+  valuesToArray.forEach(async (stat) => {
+    const [stats, value] = stat;
     const statsUpdated = await Statistic.update(
       { [stats]: [value] },
       { where: { champion_id: id } }
