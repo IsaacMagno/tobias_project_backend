@@ -12,6 +12,7 @@ const updateActivities = async (req, res) => {
       stats,
       value
     );
+
     await statisticsServices.updateStatistic(updateChampActivities);
 
     return res.status(200).json({ updateChampActivities });

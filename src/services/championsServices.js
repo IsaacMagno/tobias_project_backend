@@ -2,12 +2,21 @@ const bcrypt = require("bcrypt");
 
 const { Champion } = require("../database/models");
 
-const getAll = async () => {
-  const champions = await Champion.findAll({
-    include: { all: true, nested: true },
-  });
+const getChampions = async (id) => {
+  if (id) {
+    const champion = await Champion.findOne({
+      where: { id },
+      include: { all: true, nested: true },
+    });
 
-  return champions;
+    return champion;
+  } else {
+    const champions = await Champion.findAll({
+      include: { all: true, nested: true },
+    });
+
+    return champions;
+  }
 };
 
 const createChampion = async (championData) => {
@@ -38,8 +47,11 @@ const validateChampionLogin = async (championData) => {
   return false;
 };
 
+const updateChampionBiography = async (championData) => {};
+
 module.exports = {
-  getAll,
+  getChampions,
   createChampion,
   validateChampionLogin,
+  updateChampionBiography,
 };

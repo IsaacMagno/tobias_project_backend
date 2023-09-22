@@ -1,8 +1,10 @@
 const championsServices = require("../services/championsServices");
 
-const getAll = async (_req, res) => {
+const getChampions = async (req, res) => {
   try {
-    const champions = await championsServices.getAll();
+    const { id } = req.params;
+
+    const champions = await championsServices.getChampions(id);
 
     return res.status(200).json({ champions });
   } catch (error) {
@@ -38,8 +40,24 @@ const championLogin = async (req, res) => {
   }
 };
 
+const updateChampionBiography = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const championBio = req.body;
+
+    const updateChampBio = await championsServices.updateChampionBiography(
+      championBio
+    );
+
+    return res.status(200).json({ validLogin });
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+};
+
 module.exports = {
-  getAll,
+  getChampions,
   createChampion,
   championLogin,
+  updateChampionBiography,
 };

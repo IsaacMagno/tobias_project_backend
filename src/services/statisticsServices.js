@@ -9,7 +9,7 @@ const updateStatistic = async (activities) => {
     raw: true,
   });
 
-  const valuesToUpdate = statsRefactor(activities, actualStats);
+  const valuesToUpdate = await statsRefactor(activities, actualStats, id);
 
   const valuesToArray = Object.entries(valuesToUpdate);
 

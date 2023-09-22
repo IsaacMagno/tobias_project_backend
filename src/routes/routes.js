@@ -15,7 +15,9 @@ router.post("/task", taskController.createTask);
 router.put("/task/:id", taskController.updateTask);
 router.delete("/task/:id", taskController.deleteTask);
 
-router.get("/", championsController.getAll);
+router.get("/", championsController.getChampions);
+
+router.get("/:id", championsController.getChampions);
 
 router.get("/phrases", phrasesController.getPhrases);
 
