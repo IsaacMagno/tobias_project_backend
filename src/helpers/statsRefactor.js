@@ -13,16 +13,18 @@ const handleGiveTitle = async (id, total, maxKey) => {
     sub_title += "Musculoso";
   }
 
-  if (total >= 500 && total < 999) {
+  if (total <= 499) {
+    await Champion.update({ title: `Primata ${sub_title}` }, { where: { id } });
+  } else if (total >= 500 && total <= 999) {
     await Champion.update({ title: `Gibão ${sub_title}` }, { where: { id } });
-  } else if (total >= 1000 && total < 1999) {
+  } else if (total >= 1000 && total <= 1999) {
     await Champion.update(
       { title: `Orangotango ${sub_title}` },
       { where: { id } }
     );
-  } else if (total >= 2000 && total < 4999) {
+  } else if (total >= 2000 && total <= 4999) {
     await Champion.update({ title: `Gorila ${sub_title}` }, { where: { id } });
-  } else if (total >= 5000 && total < 9999) {
+  } else if (total >= 5000 && total <= 9999) {
     await Champion.update(
       { title: `Chimpanzé ${sub_title}` },
       { where: { id } }
@@ -45,17 +47,19 @@ const statsCalculate = async (agi, str, int, vit, id) => {
     vitality: Math.floor(meal + drink + sleep),
   };
 
-  let maxKey = Object.entries(stats).reduce((acc, curr) =>
-    acc[1] > curr[1] ? acc : curr
-  )[0];
-
-  const total = Object.values(stats).reduce((prev, curr) => prev + curr, 0);
-
-  await handleGiveTitle(id, total, maxKey);
+  let total = Object.values(stats).reduce((prev, curr) => prev + curr, 0);
 
   const wisUpdate = Math.floor(total / 15);
 
   stats.wisdow = wisUpdate;
+
+  let maxKey = Object.entries(stats).reduce((acc, curr) =>
+    acc[1] > curr[1] ? acc : curr
+  )[0];
+
+  total = Object.values(stats).reduce((prev, curr) => prev + curr, 0);
+
+  await handleGiveTitle(id, total, maxKey);
 
   return stats;
 };
