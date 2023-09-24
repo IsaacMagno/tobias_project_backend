@@ -45,11 +45,28 @@ const updateChampionBiography = async (req, res) => {
     const { id } = req.params;
     const championBio = req.body;
 
-    const updateChampBio = await championsServices.updateChampionBiography(
+    const updatedChampBio = await championsServices.updateChampionBiography(
+      id,
       championBio
     );
 
-    return res.status(200).json({ validLogin });
+    return res.status(200).json({ updatedChampBio });
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+};
+
+const updateChampionExp = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const championExp = req.body;
+
+    const updatedChampionExp = await championsServices.updateChampionExp(
+      id,
+      championExp
+    );
+
+    return res.status(200).json({ updatedChampionExp });
   } catch (error) {
     return res.status(500).json({ message: error });
   }
@@ -60,4 +77,5 @@ module.exports = {
   createChampion,
   championLogin,
   updateChampionBiography,
+  updateChampionExp,
 };

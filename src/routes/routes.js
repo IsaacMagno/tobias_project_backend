@@ -16,34 +16,29 @@ router.put("/task/:id", taskController.updateTask);
 router.delete("/task/:id", taskController.deleteTask);
 
 router.get("/champions", championsController.getChampions);
-
 router.get("/champions/:id", championsController.getChampions);
-
-router.get("/phrases", phrasesController.getPhrases);
+router.post("/create-new-champion", championsController.createChampion);
+router.post("/champion-login", championsController.championLogin);
+router.put("/champion/bio/:id", championsController.updateChampionBiography);
+router.put("/champion/xp/:id", championsController.updateChampionExp);
 
 router.get("/calendars", calendarController.getCalendar);
+router.post("/calendars/:id", calendarController.createEvent);
+router.delete("/calendars/:id", calendarController.deleteEvent);
 
 router.get("/uploads", filesController.getAllFiles);
-
 router.get("/practice/:id", filesController.getPractice);
-
-router.put("/stats/:id", statisticsController.updateStatistics);
-
-router.put("/activities/:id", activitiesController.updateActivities);
-
-router.post("/calendars/:id", calendarController.createEvent);
-
 router.post("/uploads", uploadImage.single("file"), filesController.uploadFile);
-
 router.post(
   "/practice/:id",
   uploadPractice.single("file"),
   filesController.uploadPractice
 );
 
-router.post("/create-new-champion", championsController.createChampion);
-router.post("/champion-login", championsController.championLogin);
+router.put("/stats/:id", statisticsController.updateStatistics);
 
-router.delete("/calendars/:id", calendarController.deleteEvent);
+router.put("/activities/:id", activitiesController.updateActivities);
+
+router.get("/phrases", phrasesController.getPhrases);
 
 module.exports = router;
