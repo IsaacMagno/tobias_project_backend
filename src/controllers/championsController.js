@@ -72,10 +72,24 @@ const updateChampionExp = async (req, res) => {
   }
 };
 
+const updateChampionDaystreak = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const updatedChampionDaystreak =
+      await championsServices.updateChampionDaystreak(id);
+
+    return res.status(200).json({ updatedChampionDaystreak });
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+};
+
 module.exports = {
   getChampions,
   createChampion,
   championLogin,
   updateChampionBiography,
   updateChampionExp,
+  updateChampionDaystreak,
 };

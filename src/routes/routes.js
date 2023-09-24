@@ -21,6 +21,10 @@ router.post("/create-new-champion", championsController.createChampion);
 router.post("/champion-login", championsController.championLogin);
 router.put("/champion/bio/:id", championsController.updateChampionBiography);
 router.put("/champion/xp/:id", championsController.updateChampionExp);
+router.put(
+  "/champion/daystreak/:id",
+  championsController.updateChampionDaystreak
+);
 
 router.get("/calendars", calendarController.getCalendar);
 router.post("/calendars/:id", calendarController.createEvent);

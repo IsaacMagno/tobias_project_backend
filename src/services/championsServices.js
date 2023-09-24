@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const moment = require("moment");
 
 const { Champion } = require("../database/models");
 
@@ -55,6 +56,34 @@ const updateChampionExp = async (id, championExp) => {
   ).then(() => Champion.findOne({ where: { id }, raw: true }));
 };
 
+const updateChampionDaystreak = async (id) => {
+  const { daystreak, lastDaystreakUpdate } = await Champion.findOne({
+    where: { id },
+    raw: true,
+  });
+
+  const today = moment();
+  const lastUpdate = moment(lastDaystreakUpdate);
+  const yesterday = moment().subtract(1, "days");
+
+  let newDaystreak;
+
+  if (!lastUpdate.isSame(today, "day") && lastUpdate.isSame(yesterday, "day")) {
+    newDaystreak = daystreak + 1;
+  } else if (!lastUpdate.isSame(today, "day")) {
+    newDaystreak = 1;
+  } else {
+    newDaystreak = daystreak;
+  }
+
+  await Champion.update(
+    { daystreak: newDaystreak, lastDaystreakUpdate: new Date() },
+    { where: { id } }
+  );
+
+  return Champion.findOne({ where: { id }, raw: true });
+};
+
 const createChampion = async (championData) => {
   const { username, password } = championData;
 
@@ -75,6 +104,7 @@ module.exports = {
   validateChampionLogin,
   updateChampionBiography,
   updateChampionExp,
+  updateChampionDaystreak,
 };
 
 // const calculateXP = (nivel, limiar) => {
