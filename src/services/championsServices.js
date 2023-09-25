@@ -90,6 +90,7 @@ const updateChampionDaystreak = async (id) => {
 
   if (!lastUpdate.isSame(today, "day") && lastUpdate.isSame(yesterday, "day")) {
     newDaystreak = daystreak + 1;
+    await updateChampionExp(id, { xp: 25 });
   } else if (!lastUpdate.isSame(today, "day")) {
     newDaystreak = 1;
   } else {
