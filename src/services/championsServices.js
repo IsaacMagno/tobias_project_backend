@@ -23,12 +23,31 @@ const getChampions = async (id) => {
 const validateChampionLogin = async (championData) => {
   const { username, password } = championData;
 
-  const champion = await Champion.findOne({ where: { username } });
+  const champion = await Champion.findOne({ where: { username }, raw: true });
 
   if (champion) {
     const isValid = await bcrypt.compare(password, champion.password);
 
-    return isValid;
+    const today = moment();
+    const lastUpdate = moment(champion.lastDaystreakUpdate);
+    const yesterday = moment().subtract(1, "days");
+
+    if (
+      !lastUpdate.isSame(today, "day") &&
+      !lastUpdate.isSame(yesterday, "day")
+    ) {
+      await Champion.update(
+        { daystreak: 1, lastDaystreakUpdate: new Date() },
+        { where: { id: champion.id } }
+      );
+    }
+
+    const champUpdated = await Champion.findOne({
+      where: { id: champion.id },
+      include: { all: true, nested: true },
+    });
+
+    return { isValid, champUpdated };
   }
 
   return false;
