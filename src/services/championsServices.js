@@ -36,13 +36,9 @@ const validateChampionLogin = async (championData) => {
       !lastUpdate.isSame(today, "day") &&
       !lastUpdate.isSame(yesterday, "day")
     ) {
-      let dataAtual = new Date();
-      let dataBrasil = dataAtual.toLocaleString("pt-BR", {
-        timeZone: "America/Sao_Paulo",
-      });
-
+      let date = moment().tz("America/Sao_Paulo").format();
       await Champion.update(
-        { daystreak: 1, lastDaystreakUpdate: dataBrasil },
+        { daystreak: 1, lastDaystreakUpdate: date },
         { where: { id: champion.id } }
       );
     }
@@ -100,13 +96,9 @@ const updateChampionDaystreak = async (id) => {
     newDaystreak = daystreak;
   }
 
-  let dataAtual = new Date();
-  let dataBrasil = dataAtual.toLocaleString("pt-BR", {
-    timeZone: "America/Sao_Paulo",
-  });
-
+  let date = moment().tz("America/Sao_Paulo").format();
   await Champion.update(
-    { daystreak: newDaystreak, lastDaystreakUpdate: dataBrasil },
+    { daystreak: newDaystreak, lastDaystreakUpdate: date },
     { where: { id } }
   );
 
