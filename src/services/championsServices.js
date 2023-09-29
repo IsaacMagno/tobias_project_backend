@@ -107,12 +107,12 @@ const updateChampionDaystreak = async (id) => {
 };
 
 const createChampion = async (championData) => {
-  const { username, password } = championData;
+  // const { username, password } = championData;
 
   // const hash = await bcrypt.hash(password, 13);
   // championData.password = hash;
-  // championData["name"] = "admin";
-  // championData["bornDate"] = "00-00-0000";
+  // championData["name"] = "Rafael";
+  // championData["bornDate"] = "12-05-2003";
 
   // const champion = await Champion.create(championData);
 
