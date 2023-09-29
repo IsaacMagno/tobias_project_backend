@@ -9,6 +9,7 @@ const Champion = (sequelize, DataTypes) => {
       password: DataTypes.STRING,
       title: DataTypes.STRING,
       xp: DataTypes.FLOAT,
+      xpBoost: DataTypes.FLOAT,
       level: DataTypes.INTEGER,
       daystreak: DataTypes.INTEGER,
       lastDaystreakUpdate: DataTypes.DATE,

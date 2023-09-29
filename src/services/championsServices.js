@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const moment = require("moment");
+const statsRefactor = require("../helpers/statsRefactor");
 
 const { Champion } = require("../database/models");
 
@@ -66,7 +67,10 @@ const calculateLevel = (xp, limiar) => {
 
 const updateChampionExp = async (id, championExp) => {
   const actualXp = await Champion.findOne({ where: { id }, raw: true });
-  const updatedXp = parseFloat(actualXp.xp) + parseFloat(championExp.xp);
+  const xpBoost = championExp.xp * (actualXp.xpBoost / 100);
+
+  const updatedXp =
+    parseFloat(actualXp.xp) + parseFloat(championExp.xp) + parseFloat(xpBoost);
 
   const actualNv = calculateLevel(updatedXp, 35);
 
@@ -77,33 +81,56 @@ const updateChampionExp = async (id, championExp) => {
 };
 
 const updateChampionDaystreak = async (id) => {
-  const { daystreak, lastDaystreakUpdate } = await Champion.findOne({
-    where: { id },
-    raw: true,
-  });
+  try {
+    const {
+      dataValues: {
+        statistics: {
+          dataValues: { wisdow },
+        },
+      },
+    } = await getChampions(id);
 
-  const today = moment();
-  const lastUpdate = moment(lastDaystreakUpdate);
-  const yesterday = moment().subtract(1, "days");
+    const { daystreak, lastDaystreakUpdate, topDaystreak } =
+      await Champion.findOne({
+        where: { id },
+        raw: true,
+      });
 
-  let newDaystreak;
+    const today = moment();
+    const lastUpdate = moment(lastDaystreakUpdate);
+    const yesterday = moment().subtract(1, "days");
 
-  if (!lastUpdate.isSame(today, "day") && lastUpdate.isSame(yesterday, "day")) {
-    newDaystreak = daystreak + 1;
-    await updateChampionExp(id, { xp: 25 });
-  } else if (!lastUpdate.isSame(today, "day")) {
-    newDaystreak = 1;
-  } else {
-    newDaystreak = daystreak;
+    let newDaystreak;
+
+    if (
+      !lastUpdate.isSame(today, "day") &&
+      lastUpdate.isSame(yesterday, "day")
+    ) {
+      newDaystreak = daystreak + 1;
+
+      await updateChampionExp(id, { xp: 25 });
+      await statsRefactor.handleUpdateExpBoost(id, wisdow, newDaystreak);
+    } else if (!lastUpdate.isSame(today, "day")) {
+      newDaystreak = 1;
+
+      await statsRefactor.handleUpdateExpBoost(id, wisdow, newDaystreak);
+    } else {
+      newDaystreak = daystreak;
+    }
+
+    let date = moment().tz("America/Sao_Paulo").format();
+    await Champion.update(
+      {
+        daystreak: newDaystreak,
+        lastDaystreakUpdate: date,
+      },
+      { where: { id } }
+    );
+
+    return Champion.findOne({ where: { id }, raw: true });
+  } catch (error) {
+    console.error(`Erro ao atualizar o daystreak do campeão ${id}:`, error);
   }
-
-  let date = moment().tz("America/Sao_Paulo").format();
-  await Champion.update(
-    { daystreak: newDaystreak, lastDaystreakUpdate: date },
-    { where: { id } }
-  );
-
-  return Champion.findOne({ where: { id }, raw: true });
 };
 
 const createChampion = async (championData) => {
@@ -127,6 +154,7 @@ module.exports = {
   updateChampionBiography,
   updateChampionExp,
   updateChampionDaystreak,
+  // updateExpBoost,
 };
 
 // const calculateXP = (nivel, limiar) => {
