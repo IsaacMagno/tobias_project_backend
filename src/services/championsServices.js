@@ -99,18 +99,23 @@ const updateChampionDaystreak = async (id) => {
     const today = moment();
     const lastUpdate = moment(lastDaystreakUpdate);
     const yesterday = moment().subtract(1, "days");
+    const beforeYesterday = moment().subtract(2, "days");
 
     let newDaystreak;
 
     if (
-      !lastUpdate.isSame(today, "day") &&
-      lastUpdate.isSame(yesterday, "day")
+      (!lastUpdate.isSame(today, "day") &&
+        lastUpdate.isSame(yesterday, "day")) ||
+      lastUpdate.isSame(beforeYesterday, "day")
     ) {
       newDaystreak = daystreak + 1;
 
       await updateChampionExp(id, { xp: 25 });
       await statsRefactor.handleUpdateExpBoost(id, wisdow, newDaystreak);
-    } else if (!lastUpdate.isSame(today, "day")) {
+    } else if (
+      !lastUpdate.isSame(today, "day") &&
+      !lastUpdate.isSame(yesterday, "day")
+    ) {
       newDaystreak = 1;
 
       await statsRefactor.handleUpdateExpBoost(id, wisdow, newDaystreak);
