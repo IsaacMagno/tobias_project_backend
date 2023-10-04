@@ -143,8 +143,8 @@ const createChampion = async (championData) => {
 
   // const hash = await bcrypt.hash(password, 13);
   // championData.password = hash;
-  // championData["name"] = "Rafael";
-  // championData["bornDate"] = "12-05-2003";
+  // championData["name"] = "admin";
+  // championData["bornDate"] = "99-99-9999";
 
   // const champion = await Champion.create(championData);
 
