@@ -32,12 +32,14 @@ const validateChampionLogin = async (championData) => {
     const today = moment();
     const lastUpdate = moment(champion.lastDaystreakUpdate);
     const yesterday = moment().subtract(1, "days");
+    const beforeYesterday = moment().subtract(2, "days");
 
     if (
       !lastUpdate.isSame(today, "day") &&
-      !lastUpdate.isSame(yesterday, "day")
+      !lastUpdate.isSame(yesterday, "day") &&
+      !lastUpdate.isSame(beforeYesterday, "day")
     ) {
-      let date = moment().tz("America/Sao_Paulo").format();
+      let date = moment.utc().tz("America/Sao_Paulo").format();
       await Champion.update(
         { daystreak: 1, lastDaystreakUpdate: date },
         { where: { id: champion.id } }
@@ -123,7 +125,7 @@ const updateChampionDaystreak = async (id) => {
       newDaystreak = daystreak;
     }
 
-    let date = moment().tz("America/Sao_Paulo").format();
+    let date = moment.utc().tz("America/Sao_Paulo").format();
     await Champion.update(
       {
         daystreak: newDaystreak,
