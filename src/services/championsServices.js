@@ -4,6 +4,8 @@ const statsRefactor = require("../helpers/statsRefactor");
 
 const { Champion } = require("../database/models");
 
+const TIMEZONE = "America/Sao_Paulo";
+
 const getChampions = async (id) => {
   if (id) {
     const champion = await Champion.findOne({
@@ -29,21 +31,37 @@ const validateChampionLogin = async (championData) => {
   if (champion) {
     const isValid = await bcrypt.compare(password, champion.password);
 
-    const today = moment();
-    const lastUpdate = moment(champion.lastDaystreakUpdate);
-    const yesterday = moment().subtract(1, "days");
-    const beforeYesterday = moment().subtract(2, "days");
+    const today = moment().startOf("day");
+    const lastUpdate = moment(champion.lastDaystreakUpdate).startOf("day");
 
-    if (
-      !lastUpdate.isSame(today, "day") &&
-      !lastUpdate.isSame(yesterday, "day") &&
-      !lastUpdate.isSame(beforeYesterday, "day")
-    ) {
+    var diff = today.diff(lastUpdate, "days");
+
+    if (diff > 1) {
       let date = moment.utc().tz("America/Sao_Paulo").format();
-      await Champion.update(
-        { daystreak: 1, lastDaystreakUpdate: date },
-        { where: { id: champion.id } }
-      );
+      if (champion.daystreakShield === 0) {
+        await Champion.update(
+          { daystreak: 1, lastDaystreakUpdate: date },
+          { where: { id: champion.id } }
+        );
+      } else {
+        if (diff === champion.daystreakShield) {
+          await Champion.update(
+            { daystreakShield: 0, lastDaystreakUpdate: date },
+            { where: { id: champion.id } }
+          );
+        } else if (diff > champion.daystreakShield) {
+          await Champion.update(
+            { daystreak: 1, daystreakShield: 0, lastDaystreakUpdate: date },
+            { where: { id: champion.id } }
+          );
+        } else {
+          let daystreakShield = champion.daystreakShield - diff;
+          await Champion.update(
+            { daystreakShield, lastDaystreakUpdate: date },
+            { where: { id: champion.id } }
+          );
+        }
+      }
     }
 
     const champUpdated = await Champion.findOne({
@@ -92,51 +110,61 @@ const updateChampionDaystreak = async (id) => {
       },
     } = await getChampions(id);
 
-    const { daystreak, lastDaystreakUpdate, topDaystreak } =
+    const { daystreak, lastDaystreakUpdate, daystreakShield } =
       await Champion.findOne({
         where: { id },
         raw: true,
       });
+    const today = moment().startOf("day");
+    const lastUpdate = moment(lastDaystreakUpdate).startOf("day");
 
-    const today = moment();
-    const lastUpdate = moment(lastDaystreakUpdate);
-    const yesterday = moment().subtract(1, "days");
-    const beforeYesterday = moment().subtract(2, "days");
+    var diff = today.diff(lastUpdate, "days");
 
-    let newDaystreak;
+    let newDaystreak = daystreak;
+    let newDaystreakShield = daystreakShield;
+    let date = moment.utc().tz(TIMEZONE).format();
 
-    if (
-      (!lastUpdate.isSame(today, "day") &&
-        lastUpdate.isSame(yesterday, "day")) ||
-      lastUpdate.isSame(beforeYesterday, "day")
-    ) {
-      newDaystreak = daystreak + 1;
-
+    if (!lastUpdate.isSame(today, "day")) {
       await updateChampionExp(id, { xp: 25 });
-      await statsRefactor.handleUpdateExpBoost(id, wisdow, newDaystreak);
-    } else if (
-      !lastUpdate.isSame(today, "day") &&
-      !lastUpdate.isSame(yesterday, "day")
-    ) {
-      newDaystreak = 1;
-
-      await statsRefactor.handleUpdateExpBoost(id, wisdow, newDaystreak);
-    } else {
-      newDaystreak = daystreak;
     }
 
-    let date = moment.utc().tz("America/Sao_Paulo").format();
-    await Champion.update(
-      {
-        daystreak: newDaystreak,
-        lastDaystreakUpdate: date,
-      },
-      { where: { id } }
-    );
+    if (diff > 1) {
+      if (daystreakShield === 0) {
+        newDaystreak = 1;
+        await statsRefactor.handleUpdateExpBoost(id, wisdow, newDaystreak);
+      } else {
+        if (diff === daystreakShield) {
+          newDaystreakShield = 0;
+          newDaystreak += 1;
+          await statsRefactor.handleUpdateExpBoost(id, wisdow, newDaystreak);
+        } else if (diff > daystreakShield) {
+          newDaystreakShield = 0;
+          newDaystreak = 1;
+        } else {
+          newDaystreakShield -= diff;
+          newDaystreak += 1;
+        }
+      }
+      await Champion.update(
+        {
+          daystreak: newDaystreak,
+          daystreakShield: newDaystreakShield,
+          lastDaystreakUpdate: date,
+        },
+        { where: { id } }
+      );
+    } else if (!lastUpdate.isSame(today, "day")) {
+      newDaystreak += 1;
+      await Champion.update(
+        { daystreak: newDaystreak, lastDaystreakUpdate: date },
+        { where: { id } }
+      );
+    }
 
     return Champion.findOne({ where: { id }, raw: true });
   } catch (error) {
     console.error(`Erro ao atualizar o daystreak do campeão ${id}:`, error);
+    throw error;
   }
 };
 

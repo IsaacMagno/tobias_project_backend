@@ -14,6 +14,7 @@ const Champion = (sequelize, DataTypes) => {
       daystreak: DataTypes.INTEGER,
       lastDaystreakUpdate: DataTypes.DATE,
       biography: DataTypes.TEXT,
+      daystreakShield: DataTypes.INTEGER,
     },
     {
       timestamps: false,
