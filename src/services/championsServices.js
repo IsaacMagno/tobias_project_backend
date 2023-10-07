@@ -157,18 +157,12 @@ const updateChampionDaystreak = async (id) => {
         { where: { id } }
       );
     } else if (!lastUpdate.isSame(today, "day")) {
-      console.log("LAST UPDATE");
-      console.log(today);
-      console.log(lastUpdate);
       newDaystreak += 1;
       await Champion.update(
         { daystreak: newDaystreak, lastDaystreakUpdate: date },
         { where: { id } }
       );
     }
-
-    console.log(today, "today");
-    console.log(lastUpdate, "last");
 
     return Champion.findOne({ where: { id }, raw: true });
   } catch (error) {
