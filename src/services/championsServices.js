@@ -31,7 +31,7 @@ const validateChampionLogin = async (championData) => {
   if (champion) {
     const isValid = await bcrypt.compare(password, champion.password);
 
-    const today = moment().startOf("day");
+    const today = moment().tz("America/Sao_Paulo").startOf("day").format();
     const lastUpdate = moment(champion.lastDaystreakUpdate).startOf("day");
 
     var diff = today.diff(lastUpdate, "days");
@@ -116,7 +116,7 @@ const updateChampionDaystreak = async (id) => {
         where: { id },
         raw: true,
       });
-    const today = moment().startOf("day");
+    const today = moment().tz("America/Sao_Paulo").startOf("day").format();
     const lastUpdate = moment(lastDaystreakUpdate).startOf("day");
 
     var diff = today.diff(lastUpdate, "days");
@@ -157,12 +157,18 @@ const updateChampionDaystreak = async (id) => {
         { where: { id } }
       );
     } else if (!lastUpdate.isSame(today, "day")) {
+      console.log("LAST UPDATE");
+      console.log(today);
+      console.log(lastUpdate);
       newDaystreak += 1;
       await Champion.update(
         { daystreak: newDaystreak, lastDaystreakUpdate: date },
         { where: { id } }
       );
     }
+
+    console.log(today, "today");
+    console.log(lastUpdate, "last");
 
     return Champion.findOne({ where: { id }, raw: true });
   } catch (error) {
