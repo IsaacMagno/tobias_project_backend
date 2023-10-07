@@ -37,7 +37,7 @@ const validateChampionLogin = async (championData) => {
     var diff = today.diff(lastUpdate, "days");
 
     if (diff > 1) {
-      let date = moment.utc().tz("America/Sao_Paulo").format();
+      let date = moment.utc().tz(TIMEZONE).startOf("day").format();
       if (champion.daystreakShield === 0) {
         await Champion.update(
           { daystreak: 1, lastDaystreakUpdate: date },
@@ -122,7 +122,7 @@ const updateChampionDaystreak = async (id) => {
 
     let newDaystreak = daystreak;
     let newDaystreakShield = daystreakShield;
-    let date = moment.utc().tz(TIMEZONE).format();
+    let date = moment.utc().tz(TIMEZONE).startOf("day").format();
 
     if (!lastUpdate.isSame(today, "day")) {
       await updateChampionExp(id, { xp: 25 });
