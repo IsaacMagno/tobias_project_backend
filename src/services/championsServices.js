@@ -36,33 +36,31 @@ const validateChampionLogin = async (championData) => {
 
     var diff = today.diff(lastUpdate, "days");
 
-    if (diff > 1) {
-      let date = moment().tz("America/Sao_Paulo").startOf("day").format();
+    let newDaystreak = champion.daystreak;
+    let newDaystreakShield = champion.daystreakShield;
 
+    if (diff > 1) {
       if (champion.daystreakShield === 0) {
-        await Champion.update(
-          { daystreak: 1, lastDaystreakUpdate: date },
-          { where: { id: champion.id } }
-        );
+        newDaystreak = 1;
       } else {
         if (diff === champion.daystreakShield) {
-          await Champion.update(
-            { daystreakShield: 0, lastDaystreakUpdate: date },
-            { where: { id: champion.id } }
-          );
+          newDaystreakShield = 0;
         } else if (diff > champion.daystreakShield) {
-          await Champion.update(
-            { daystreak: 1, daystreakShield: 0, lastDaystreakUpdate: date },
-            { where: { id: champion.id } }
-          );
+          newDaystreakShield = 0;
+          newDaystreak = 1;
         } else {
-          let daystreakShield = champion.daystreakShield - diff;
-          await Champion.update(
-            { daystreakShield, lastDaystreakUpdate: date },
-            { where: { id: champion.id } }
-          );
+          newDaystreakShield -= diff;
         }
       }
+
+      await Champion.update(
+        {
+          daystreak: newDaystreak,
+          daystreakShield: newDaystreakShield,
+          lastDaystreakUpdate: today,
+        },
+        { where: { id } }
+      );
     }
 
     const champUpdated = await Champion.findOne({
@@ -123,7 +121,6 @@ const updateChampionDaystreak = async (id) => {
 
     let newDaystreak = daystreak;
     let newDaystreakShield = daystreakShield;
-    let date = moment().tz("America/Sao_Paulo").startOf("day").format();
 
     if (!lastUpdate.isSame(today, "day")) {
       await updateChampionExp(id, { xp: 25 });
@@ -148,7 +145,7 @@ const updateChampionDaystreak = async (id) => {
         {
           daystreak: newDaystreak,
           daystreakShield: newDaystreakShield,
-          lastDaystreakUpdate: date,
+          lastDaystreakUpdate: today,
         },
         { where: { id } }
       );
@@ -156,7 +153,7 @@ const updateChampionDaystreak = async (id) => {
       newDaystreak += 1;
 
       await Champion.update(
-        { daystreak: newDaystreak, lastDaystreakUpdate: date },
+        { daystreak: newDaystreak, lastDaystreakUpdate: today },
         { where: { id } }
       );
     }
