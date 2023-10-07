@@ -141,9 +141,11 @@ const updateChampionDaystreak = async (id) => {
         } else if (diff > daystreakShield) {
           newDaystreakShield = 0;
           newDaystreak = 1;
+          await statsRefactor.handleUpdateExpBoost(id, wisdow, newDaystreak);
         } else {
           newDaystreakShield -= diff;
           newDaystreak += 1;
+          await statsRefactor.handleUpdateExpBoost(id, wisdow, newDaystreak);
         }
       }
       await Champion.update(
