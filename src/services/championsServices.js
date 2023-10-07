@@ -132,20 +132,16 @@ const updateChampionDaystreak = async (id) => {
     if (diff > 1) {
       if (daystreakShield === 0) {
         newDaystreak = 1;
-        await statsRefactor.handleUpdateExpBoost(id, wisdow, newDaystreak);
       } else {
         if (diff === daystreakShield) {
           newDaystreakShield = 0;
           newDaystreak += 1;
-          await statsRefactor.handleUpdateExpBoost(id, wisdow, newDaystreak);
         } else if (diff > daystreakShield) {
           newDaystreakShield = 0;
           newDaystreak = 1;
-          await statsRefactor.handleUpdateExpBoost(id, wisdow, newDaystreak);
         } else {
           newDaystreakShield -= diff;
           newDaystreak += 1;
-          await statsRefactor.handleUpdateExpBoost(id, wisdow, newDaystreak);
         }
       }
       await Champion.update(
@@ -158,11 +154,14 @@ const updateChampionDaystreak = async (id) => {
       );
     } else if (!lastUpdate.isSame(today, "day")) {
       newDaystreak += 1;
+
       await Champion.update(
         { daystreak: newDaystreak, lastDaystreakUpdate: date },
         { where: { id } }
       );
     }
+
+    await statsRefactor.handleUpdateExpBoost(id, wisdow, newDaystreak);
 
     return Champion.findOne({ where: { id }, raw: true });
   } catch (error) {
