@@ -33,9 +33,7 @@ const validateChampionLogin = async (championData) => {
 
     if (isValid) {
       const today = moment().tz(TIMEZONE).startOf("day");
-      const lastUpdate = moment(champion.lastDaystreakUpdate)
-        .tz(TIMEZONE)
-        .startOf("day");
+      const lastUpdate = moment(champion.lastLogin).tz(TIMEZONE).startOf("day");
 
       var diff = today.diff(lastUpdate, "days");
 
@@ -60,9 +58,9 @@ const validateChampionLogin = async (championData) => {
           {
             daystreak: newDaystreak,
             daystreakShield: newDaystreakShield,
-            lastDaystreakUpdate: today,
+            lastLogin: today,
           },
-          { where: { id } }
+          { where: { id: champion.id } }
         );
       }
     }
@@ -73,9 +71,9 @@ const validateChampionLogin = async (championData) => {
     });
 
     return { isValid, champUpdated };
+  } else {
+    return false;
   }
-
-  return false;
 };
 
 const updateChampionBiography = async (id, { bio }) => {
