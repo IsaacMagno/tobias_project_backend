@@ -169,16 +169,16 @@ const updateChampionDaystreak = async (id) => {
 };
 
 const createChampion = async (championData) => {
-  // const { username, password } = championData;
+  const { username, password } = championData;
 
-  // const hash = await bcrypt.hash(password, 13);
-  // championData.password = hash;
-  // championData["name"] = "admin";
-  // championData["bornDate"] = "99-99-9999";
+  const hash = await bcrypt.hash(password, 13);
+  championData.password = hash;
+  championData["name"] = "Erick";
+  championData["bornDate"] = "11-05-2004";
 
-  // const champion = await Champion.create(championData);
+  const champion = await Champion.create(championData);
 
-  // return champion;
+  return champion;
   return "Criação não disponivel";
 };
 
