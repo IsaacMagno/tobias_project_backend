@@ -33,9 +33,9 @@ const validateChampionLogin = async (championData) => {
 
     if (isValid) {
       const today = moment().tz(TIMEZONE).startOf("day");
-      const lastUpdate = moment(champion.lastLogin).tz(TIMEZONE).startOf("day");
+      const lastLogin = moment(champion.lastLogin).tz(TIMEZONE).startOf("day");
 
-      var diff = today.diff(lastUpdate, "days");
+      var diff = today.diff(lastLogin, "days");
 
       let newDaystreak = champion.daystreak;
       let newDaystreakShield = champion.daystreakShield;
@@ -50,7 +50,7 @@ const validateChampionLogin = async (championData) => {
             newDaystreakShield = 0;
             newDaystreak = 1;
           } else {
-            newDaystreakShield -= diff;
+            newDaystreakShield -= diff - 1;
           }
         }
 
