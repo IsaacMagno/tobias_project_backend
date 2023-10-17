@@ -62,6 +62,15 @@ const validateChampionLogin = async (championData) => {
           },
           { where: { id: champion.id } }
         );
+      } else {
+        await Champion.update(
+          {
+            daystreak: newDaystreak,
+            daystreakShield: newDaystreakShield,
+            lastLogin: today,
+          },
+          { where: { id: champion.id } }
+        );
       }
     }
 
