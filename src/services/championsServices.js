@@ -182,8 +182,17 @@ const createChampion = async (championData) => {
 
   // const hash = await bcrypt.hash(password, 13);
   // championData.password = hash;
-  // championData["name"] = "admin";
-  // championData["bornDate"] = "99-99-9999";
+
+  // championData["name"] = "Admin";
+  // championData["bornDate"] = "00-00-0000";
+  // championData["title"] = "Primata";
+  // championData["xp"] = 0;
+  // championData["daystreak"] = 0;
+  // championData["biography"] =
+  //   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, repellat accusantium! Necessitatibus aspernatur voluptas adipisci alias, odio nemo. Aperiam qui rerum consequatur maxime reprehenderit, eos quis eveniet libero? Sint, minima.";
+  // championData["level"] = 1;
+  // championData["xpBoost"] = 0;
+  // championData["daystreakShield"] = 3;
 
   // const champion = await Champion.create(championData);
 
