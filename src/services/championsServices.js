@@ -45,7 +45,7 @@ const validateChampionLogin = async (championData) => {
           newDaystreak = 1;
         } else {
           if (diff === champion.daystreakShield) {
-            newDaystreakShield = 0;
+            newDaystreakShield = 1;
           } else if (diff > champion.daystreakShield) {
             newDaystreakShield = 0;
             newDaystreak = 1;
@@ -141,7 +141,7 @@ const updateChampionDaystreak = async (id) => {
         newDaystreak = 1;
       } else {
         if (diff === daystreakShield) {
-          newDaystreakShield = 0;
+          newDaystreakShield = 1;
           newDaystreak += 1;
         } else if (diff > daystreakShield) {
           newDaystreakShield = 0;
