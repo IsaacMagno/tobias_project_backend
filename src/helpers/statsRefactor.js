@@ -42,19 +42,19 @@ const handleUpdateExpBoost = async (id, wis, daystreak) => {
 
     switch (true) {
       case actualDaystreak >= 7 && actualDaystreak < 14:
-        xpBoost += 1;
-        break;
-      case actualDaystreak >= 14 && actualDaystreak < 21:
-        xpBoost += 2;
-        break;
-      case actualDaystreak >= 21 && actualDaystreak < 28:
         xpBoost += 3;
         break;
+      case actualDaystreak >= 14 && actualDaystreak < 21:
+        xpBoost += 6;
+        break;
+      case actualDaystreak >= 21 && actualDaystreak < 28:
+        xpBoost += 9;
+        break;
       case actualDaystreak >= 28 && actualDaystreak < 35:
-        xpBoost += 4;
+        xpBoost += 12;
         break;
       case actualDaystreak >= 35:
-        xpBoost += 5;
+        xpBoost += 15;
         break;
       default:
         xpBoost += 0;
